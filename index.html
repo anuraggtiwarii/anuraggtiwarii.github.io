@@ -9,8 +9,8 @@
 
     <nav>
         <h2>ANURAG</h2>
-
-        <div>
+        
+        <div class="nav-links">
     <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
@@ -25,8 +25,8 @@
 
         <h1>Anurag</h1>
 
-        <h2>Student & Creator</h2>
-
+        <h2><span id="typing-text"></span><span class="typing-cursor">|</span></h2>
+        
         <p>
             I create digital content and I'm learning
             web development.
@@ -48,16 +48,17 @@
             <h2>Who I Am</h2>
 
             <p>
-                I'm Anurag, a student and creator interested in
-                technology, content creation and web development.
-                I enjoy learning new skills and turning ideas into
-                creative digital projects.
-            </p>
-
             <p>
-                Currently, I'm exploring web development and
-                building projects to improve my skills.
-            </p>
+    I'm Anurag, a student and digital creator passionate about
+    technology, content creation, and web development.
+    I enjoy building things, experimenting with new ideas,
+    and turning concepts into real digital projects.
+</p>
+
+<p>
+    I'm currently improving my coding and web development skills
+    while creating projects that combine creativity and technology.
+</p>
 
             <div class="about-tags">
                 <span>🎨 Creator</span>
@@ -80,12 +81,12 @@
 
         <div class="skill-card">
             <h3>💻 Coding</h3>
-            <p>Building websites and learning modern web development using HTML, CSS and JavaScript.</p>
+            <p>Building responsive websites using HTML, CSS and JavaScript, with a focus on clean and modern design.</p>
         </div>
 
         <div class="skill-card">
             <h3>📱 Account Management</h3>
-            <p>Managing social media accounts, content and digital presence effectively.</p>
+            <p>Managing social media accounts, content and digital presence with a focus on consistency and growth.</p>
         </div>
 
         <div class="skill-card">
@@ -107,12 +108,11 @@
 
         <div class="project-card">
             <h3>🌐 Personal Portfolio</h3>
-            <p>
-                My personal portfolio website built using HTML and CSS,
-                featuring a modern responsive design.
-            </p>
-
-            <a href="https://anuraggtiwarii.github.io/" target="_blank">
+           <p>
+    My personal portfolio website showcasing my skills,
+    projects, and experience in web development and content creation.
+</p>
+            <a href="https://anuragtiwarii.github.io/taskflow/" target="_blank">
                 View Project →
             </a>
         </div>
@@ -120,26 +120,28 @@
         <div class="project-card">
             <h3>🎬 Content Creation</h3>
             <p>
-                Creating and editing digital content for social media
-                and online platforms.
-            </p>
-
-            <p class="coming-soon">More Projects Coming Soon</p>
+    A collection of digital content and creative projects
+    created for social media and online platforms.
+</p>
+            <span class="coming-soon">More Projects Coming Soon</span>
         </div>
 
-        <div class="project-card">
-            <h3>💻 Web Development</h3>
-            <p>
-                Learning and building websites using HTML, CSS and
-                JavaScript.
-            </p>
+       <div class="project-card">
+    <h3>📝 TaskFlow</h3>
+    <p>
+        A simple and modern task manager built with HTML,
+        CSS and JavaScript, featuring task creation,
+        completion and local storage.
+    </p>
+    <a href="https://anuraggtiwarii.github.io/taskflow/" target="_blank">
+    View Project →
+</a>
 
-            <p class="coming-soon">Coming Soon</p>
-        </div>
-
+</div>
     </div>
 
 </section>
+
 <section class="contact" id="contact">
 
     <p class="section-title">GET IN TOUCH</p>
@@ -165,7 +167,7 @@
             ▶️ YouTube
         </a>
 
-        <a href="https://github.com/anuraggtiwarii" target="_blank">
+        <a href="https://github.com/anuraggtiwariii" target="_blank">
             💻 GitHub
         </a>
 
@@ -173,10 +175,124 @@
 
 </section>
 
+
 <footer>
     <p>© 2026 Anurag. All rights reserved.</p>
     <p>Built with HTML & CSS.</p>
 </footer>
+<script>
+const mouseGlow = document.createElement("div");
+mouseGlow.className = "mouse-glow";
+document.body.appendChild(mouseGlow);
+
+document.addEventListener("mousemove", (e) => {
+    mouseGlow.style.left = `${e.clientX}px`;
+    mouseGlow.style.top = `${e.clientY}px`;
+});
+
+const typingText = document.getElementById("typing-text");
+
+const words = [
+    "Student & Creator",
+    "Web Developer",
+    "Content Creator",
+    "Coder"
+];
+
+let wordIndex = 0;
+let charIndex = 0;
+let deleting = false;
+
+function typeEffect() {
+    const currentWord = words[wordIndex];
+
+    if (!deleting) {
+        typingText.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+
+        if (charIndex === currentWord.length) {
+            deleting = true;
+            setTimeout(typeEffect, 1600);
+            return;
+        }
+    } else {
+        typingText.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+
+        if (charIndex === 0) {
+            deleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+        }
+    }
+
+    setTimeout(typeEffect, deleting ? 60 : 100);
+}
+
+typeEffect();
+
+document.querySelectorAll('.project-card, .about-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        card.style.setProperty('--mouse-x', `${x}px`);
+card.style.setProperty('--mouse-y', `${y}px`);
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.transform =
+            `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+        card.style.transform =
+            'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+    });
+})
+;// ===== ACTIVE NAVBAR =====
+
+const sections = document.querySelectorAll("section[id]");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 180;
+        const sectionHeight = section.offsetHeight;
+
+        if (
+            window.scrollY >= sectionTop &&
+            window.scrollY < sectionTop + sectionHeight
+        ) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+    });
+});
+
+</script>
+<script>
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.querySelector(".nav-links");
+
+menuToggle.addEventListener("click", function () {
+    navLinks.classList.toggle("active");
+});
+</script>
 
 </body>
 
